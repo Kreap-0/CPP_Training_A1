@@ -4,7 +4,7 @@
 
 namespace adas
 {
-Executor* Executor::NewExecutor(const Pose& pose) noexcept
+Executor* Executor::NewExecutor(const Pose& pose = {0, 0, 'N'}) noexcept
 {
     return new ExecutorImpl(pose);
 }
