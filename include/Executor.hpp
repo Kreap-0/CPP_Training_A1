@@ -17,6 +17,7 @@ public:
     virtual ~Executor(void) = default;
 
     Executor(const Executor&) = delete;
+
     Executor& operator=(const Executor&) = delete;
 
     virtual void Execute(const std::string& command) noexcept = 0;
