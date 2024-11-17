@@ -4,7 +4,8 @@
 namespace adas
 {
 struct Pose {
-    int x, y;
+    int x;
+    int y;
     char heading;
 };
 
