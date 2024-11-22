@@ -1,5 +1,6 @@
 #include "ExecutorImpl.hpp"
 
+#include <functional>
 #include <memory>
 #include <new>
 #include <unordered_map>
@@ -19,17 +20,17 @@ ExecutorImpl::ExecutorImpl(const Pose& pose) noexcept : poseHandler(pose)
 
 void ExecutorImpl::Execute(const std::string& commands) noexcept
 {
-    std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
-    cmderMap.emplace('M', std::make_unique<MoveCommand>());
-    cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
-    cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
-    cmderMap.emplace('F', std::make_unique<FastCommand>());
+    const std::unordered_map<char, std::function<void(PoseHandler & poseHandler)>> cmderMap{
+        {'M', MoveCommand()},
+        {'L', TurnLeftCommand()},
+        {'R', TurnRightCommand()},
+        {'F', FastCommand()},
+    };
 
-    std::unique_ptr<ICommand> cmder;
     for (const auto cmd : commands) {
         const auto it = cmderMap.find(cmd);
         if (it != cmderMap.end()) {
-            it->second->DoOperate(poseHandler);
+            it->second(poseHandler);
         }
     }
 }
