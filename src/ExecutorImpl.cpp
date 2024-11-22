@@ -12,7 +12,7 @@ Executor* Executor::NewExecutor(const Pose& pose) noexcept
     return new ExecutorImpl(pose);
 }
 
-ExecutorImpl::ExecutorImpl(const Pose& pose) noexcept : pose(pose)
+ExecutorImpl::ExecutorImpl(const Pose& pose) noexcept : poseHandler(pose)
 {
 }
 
@@ -31,62 +31,13 @@ void ExecutorImpl::Execute(const std::string& commands) noexcept
         }
 
         if (cmder) {
-            cmder->DoOperate(*this);
+            cmder->DoOperate(poseHandler);
         }
     }
 }
 
-void ExecutorImpl::Move(void) noexcept
-{
-    if (pose.heading == 'E') {
-        ++pose.x;
-    } else if (pose.heading == 'W') {
-        --pose.x;
-    } else if (pose.heading == 'N') {
-        ++pose.y;
-    } else if (pose.heading == 'S') {
-        --pose.y;
-    }
-}
-
-void ExecutorImpl::TurnLeft(void) noexcept
-{
-    if (pose.heading == 'E') {
-        pose.heading = 'N';
-    } else if (pose.heading == 'N') {
-        pose.heading = 'W';
-    } else if (pose.heading == 'W') {
-        pose.heading = 'S';
-    } else if (pose.heading == 'S') {
-        pose.heading = 'E';
-    }
-}
-
-void ExecutorImpl::TurnRight(void) noexcept
-{
-    if (pose.heading == 'E') {
-        pose.heading = 'S';
-    } else if (pose.heading == 'S') {
-        pose.heading = 'W';
-    } else if (pose.heading == 'W') {
-        pose.heading = 'N';
-    } else if (pose.heading == 'N') {
-        pose.heading = 'E';
-    }
-}
-
-void ExecutorImpl::Fast() noexcept
-{
-    isFast = !isFast;
-}
-
-bool ExecutorImpl::IsFast() const noexcept
-{
-    return isFast;
-}
-
 Pose ExecutorImpl::Query() const noexcept
 {
-    return pose;
+    return poseHandler.Query();
 }
 }  // namespace adas
