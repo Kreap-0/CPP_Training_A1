@@ -3,47 +3,24 @@
 namespace adas
 {
 
-PoseHandler::PoseHandler(const Pose& pose) noexcept : pose(pose)
+PoseHandler::PoseHandler(const Pose& pose) noexcept
+    : point(pose.x, pose.y), facing(&Direction::GetDirection(pose.heading))
 {
 }
 
 void PoseHandler::Move(void) noexcept
 {
-    if (pose.heading == 'E') {
-        ++pose.x;
-    } else if (pose.heading == 'W') {
-        --pose.x;
-    } else if (pose.heading == 'N') {
-        ++pose.y;
-    } else if (pose.heading == 'S') {
-        --pose.y;
-    }
+    point += facing->Move();
 }
 
 void PoseHandler::TurnLeft(void) noexcept
 {
-    if (pose.heading == 'E') {
-        pose.heading = 'N';
-    } else if (pose.heading == 'N') {
-        pose.heading = 'W';
-    } else if (pose.heading == 'W') {
-        pose.heading = 'S';
-    } else if (pose.heading == 'S') {
-        pose.heading = 'E';
-    }
+    facing = &(facing->LeftOne());
 }
 
 void PoseHandler::TurnRight(void) noexcept
 {
-    if (pose.heading == 'E') {
-        pose.heading = 'S';
-    } else if (pose.heading == 'S') {
-        pose.heading = 'W';
-    } else if (pose.heading == 'W') {
-        pose.heading = 'N';
-    } else if (pose.heading == 'N') {
-        pose.heading = 'E';
-    }
+    facing = &(facing->RightOne());
 }
 
 void PoseHandler::Fast() noexcept
@@ -58,6 +35,6 @@ bool PoseHandler::IsFast() const noexcept
 
 Pose PoseHandler::Query() const noexcept
 {
-    return pose;
+    return {point.GetX(), point.GetY(), facing->GetHeading()};
 }
-}
+}  // namespace adas

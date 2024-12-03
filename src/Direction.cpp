@@ -3,6 +3,8 @@
 namespace adas
 {
 
+static const Direction directions[4] = {{0, 'E'}, {1, 'S'}, {2, 'W'}, {3, 'N'}};
+
 Direction::Direction(const unsigned index, const char heading) noexcept : index(index), heading(heading)
 {
 }
@@ -23,8 +25,6 @@ const Point& Direction::Move() const noexcept
     static const Point points[4] = {{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
     return points[index];
 }
-
-static const Direction directions[4] = {{0, 'E'}, {1, 'S'}, {2, 'W'}, {3, 'N'}};
 
 const Direction& Direction::LeftOne() const noexcept
 {
