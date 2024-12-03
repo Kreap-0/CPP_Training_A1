@@ -14,7 +14,7 @@ Point& Point::operator+=(const Point& rhs) noexcept
     return *this;
 }
 
-Point& Point::operator+=(const Point& rhs) noexcept
+Point& Point::operator-=(const Point& rhs) noexcept
 {
     x -= rhs.GetX();
     y -= rhs.GetY();

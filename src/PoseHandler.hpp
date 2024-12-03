@@ -13,7 +13,8 @@ public:
     PoseHandler& operator=(const PoseHandler&) = delete;
 
 public:
-    void Move(void) noexcept;
+    void Forward(void) noexcept;
+    void Backward(void) noexcept;
     void TurnLeft(void) noexcept;
     void TurnRight(void) noexcept;
     void Fast(void) noexcept;
