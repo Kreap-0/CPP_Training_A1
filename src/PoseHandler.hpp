@@ -18,11 +18,14 @@ public:
     void TurnRight(void) noexcept;
     void Fast(void) noexcept;
     bool IsFast(void) const noexcept;
+    void Reverse(void) noexcept;
+    bool IsReverse(void) const noexcept;
     Pose Query(void) const noexcept;
 
 private:
     Point point;
     const Direction* facing;
     bool isFast{false};
+    bool reverse{false};
 };
 }  // namespace adas
