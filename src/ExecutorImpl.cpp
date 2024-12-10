@@ -6,10 +6,10 @@
 #include <new>
 #include <unordered_map>
 
-#include "ActionGroup.hpp"
-#include "CmderFactory.hpp"
-#include "Command.hpp"
-#include "Singleton.hpp"
+#include "cmder/ActionGroup.hpp"
+#include "cmder/CmderFactory.hpp"
+#include "cmder/Command.hpp"
+#include "core/Singleton.hpp"
 
 namespace adas
 {
