@@ -1,5 +1,6 @@
 #pragma once
 #include "ActionGroup.hpp"
+#include "Executor.hpp"
 #include "PoseHandler.hpp"
 
 namespace adas
@@ -8,7 +9,7 @@ namespace adas
 class MoveCommand final
 {
 public:
-    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         ActionGroup actionGroup;
         const auto action =
@@ -24,7 +25,7 @@ public:
 class TurnLeftCommand final
 {
 public:
-    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         ActionGroup actionGroup;
 
@@ -41,7 +42,7 @@ public:
 class TurnRightCommand final
 {
 public:
-    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         ActionGroup actionGroup;
 
@@ -58,7 +59,7 @@ public:
 class FastCommand final
 {
 public:
-    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         return ActionGroup({ActionType::BE_FAST_ACTION});
     }
@@ -67,7 +68,7 @@ public:
 class ReverseCommand final
 {
 public:
-    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         return ActionGroup({ActionType::BE_REVERSE_ACTION});
     }
@@ -76,7 +77,7 @@ public:
 class TurnRoundCommand final
 {
 public:
-    ActionGroup operator()(PoseHandler& poseHandler) const noexcept
+    ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         if (poseHandler.IsReverse()) {
             return ActionGroup();

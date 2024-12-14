@@ -6,11 +6,12 @@
 
 #include "ActionGroup.hpp"
 #include "Command.hpp"
+#include "Executor.hpp"
 
 namespace adas
 {
 
-using Cmder = std::function<ActionGroup(PoseHandler& poseHandler)>;
+using Cmder = std::function<ActionGroup(PoseHandler&, CarType&)>;
 using CmderList = std::list<Cmder>;
 
 class CmderFactory final

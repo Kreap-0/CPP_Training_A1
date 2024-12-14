@@ -13,12 +13,12 @@
 
 namespace adas
 {
-Executor* Executor::NewExecutor(const Pose& pose) noexcept
+Executor* Executor::NewExecutor(const Pose& pose, const CarType& cartype) noexcept
 {
-    return new ExecutorImpl(pose);
+    return new ExecutorImpl(pose, cartype);
 }
 
-ExecutorImpl::ExecutorImpl(const Pose& pose) noexcept : poseHandler(pose)
+ExecutorImpl::ExecutorImpl(const Pose& pose, const CarType& cartype) noexcept : poseHandler(pose), cartype(cartype)
 {
 }
 
@@ -26,7 +26,7 @@ void ExecutorImpl::Execute(const std::string& commands) noexcept
 {
     const auto cmders = Singleton<CmderFactory>::Instance().GetCmders(commands);
     std::for_each(cmders.begin(), cmders.end(),
-                  [this](const Cmder& cmder) noexcept { cmder(poseHandler).DoOperate(poseHandler); });
+                  [this](const Cmder& cmder) noexcept { cmder(poseHandler, cartype).DoOperate(poseHandler); });
 }
 
 Pose ExecutorImpl::Query() const noexcept
