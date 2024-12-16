@@ -34,7 +34,10 @@ public:
     ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         ActionGroup actionGroup;
-
+        if (cartype == CarType::BUS) {
+            actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::BACKWARD_1_STEP_ACTION
+                                                           : ActionType::FORWARD_1_STEP_ACTION);
+        }
         if (poseHandler.IsFast()) {
             actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::BACKWARD_1_STEP_ACTION
                                                            : ActionType::FORWARD_1_STEP_ACTION);
@@ -55,7 +58,10 @@ public:
     ActionGroup operator()(PoseHandler& poseHandler, CarType& cartype) const noexcept
     {
         ActionGroup actionGroup;
-
+        if (cartype == CarType::BUS) {
+            actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::BACKWARD_1_STEP_ACTION
+                                                           : ActionType::FORWARD_1_STEP_ACTION);
+        }
         if (poseHandler.IsFast()) {
             actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::BACKWARD_1_STEP_ACTION
                                                            : ActionType::FORWARD_1_STEP_ACTION);
