@@ -16,8 +16,14 @@ public:
             poseHandler.IsReverse() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
         if (poseHandler.IsFast()) {
             actionGroup.PushAction(action);
+            if (cartype == CarType::RACING) {
+                actionGroup.PushAction(action);
+            }
         }
         actionGroup.PushAction(action);
+        if (cartype == CarType::RACING) {
+            actionGroup.PushAction(action);
+        }
         return actionGroup;
     }
 };
@@ -35,6 +41,10 @@ public:
         }
         actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::REVERSE_TURNLEFT_ACTION
                                                        : ActionType::TURNLEFT_ACTION);
+        if (cartype == CarType::RACING) {
+            actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::BACKWARD_1_STEP_ACTION
+                                                           : ActionType::FORWARD_1_STEP_ACTION);
+        }
         return actionGroup;
     }
 };
@@ -52,6 +62,10 @@ public:
         }
         actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::REVERSE_TURNRIGHT_ACTION
                                                        : ActionType::TURNRIGHT_ACTION);
+        if (cartype == CarType::RACING) {
+            actionGroup.PushAction(poseHandler.IsReverse() ? ActionType::BACKWARD_1_STEP_ACTION
+                                                           : ActionType::FORWARD_1_STEP_ACTION);
+        }
         return actionGroup;
     }
 };
@@ -90,5 +104,4 @@ public:
             {ActionType::TURNLEFT_ACTION, ActionType::FORWARD_1_STEP_ACTION, ActionType::TURNLEFT_ACTION});
     }
 };
-
 }  // namespace adas

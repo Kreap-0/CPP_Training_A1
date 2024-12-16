@@ -22,7 +22,7 @@ TEST(ExecutorRacingTest, should_return_x_minus_2_given_command_is_BM_and_facing_
     // given
     std::unique_ptr<Executor> executor(Executor::NewExecutor({0, 0, 'E'}, CarType::RACING));
     // when
-    executor->Execute("B");
+    executor->Execute("BM");
     // then
     const Pose target{-2, 0, 'E'};
     ASSERT_EQ(target, executor->Query());
